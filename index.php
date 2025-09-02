@@ -19,7 +19,9 @@ $stocks = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container">
         <h1>Warehouse Stock Opname</h1>
         <a href="create.php" class="btn btn-primary">Add New Stock</a>
-        <table>
+        <input type="text" id="searchInput" placeholder="Search stocks..." style="margin-bottom: 15px; padding: 8px; width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc;">
+
+        <table id="stocksTable">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -46,6 +48,18 @@ $stocks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+        <script>
+            document.getElementById('searchInput').addEventListener('keyup', function() {
+                var filter = this.value.toLowerCase();
+                var rows = document.querySelectorAll('#stocksTable tbody tr');
+
+                rows.forEach(function(row) {
+                    var text = row.textContent.toLowerCase();
+                    row.style.display = text.indexOf(filter) > -1 ? '' : 'none';
+                });
+            });
+        </script>
     </div>
     <script src="script.js"></script>
 </body>
