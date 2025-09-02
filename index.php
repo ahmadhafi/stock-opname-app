@@ -19,25 +19,33 @@ $stocks = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container">
         <h1>Warehouse Stock Opname</h1>
         <a href="create.php" class="btn btn-primary">Add New Stock</a>
-        <div class="card-grid">
-            <?php foreach ($stocks as $stock): ?>
-            <div class="card">
-                <div class="card-header">
-                    <h2><?php echo htmlspecialchars($stock['name']); ?></h2>
-                    <div class="card-actions">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($stocks as $stock): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($stock['name']); ?></td>
+                    <td><?php echo $stock['id']; ?></td>
+                    <td><?php echo $stock['quantity']; ?></td>
+                    <td><?php echo htmlspecialchars($stock['description']); ?></td>
+                    <td><?php echo htmlspecialchars($stock['category']); ?></td>
+                    <td>
                         <a href="update.php?id=<?php echo $stock['id']; ?>" class="btn btn-secondary btn-sm">Edit</a>
                         <a href="delete.php?id=<?php echo $stock['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p><strong>ID:</strong> <?php echo $stock['id']; ?></p>
-                    <p><strong>Quantity:</strong> <?php echo $stock['quantity']; ?></p>
-                    <p><strong>Description:</strong> <?php echo htmlspecialchars($stock['description']); ?></p>
-                    <p><strong>Category:</strong> <?php echo htmlspecialchars($stock['category']); ?></p>
-                </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
     <script src="script.js"></script>
 </body>
